@@ -39,6 +39,8 @@ build() {
 package() {
   cd lunele-cli
   python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 NOTICE "$pkgdir/usr/share/licenses/$pkgname/NOTICE"
   install -Dm644 completions/lunele.fish "$pkgdir/usr/share/fish/vendor_completions.d/lunele.fish"
   install -Dm644 completions/_lunele "$pkgdir/usr/share/zsh/site-functions/_lunele"
 }

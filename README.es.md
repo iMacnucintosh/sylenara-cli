@@ -222,4 +222,4 @@ Todas las opciones están en `~/.config/lunele/cli.json`.
 
 ## Licencia
 
-GPL-3.0-only. Obra original © los colaboradores de Caelestia.
+GPL-3.0-only. Copyright (C) 2026 Manuel López Mallorquín. Créditos en [NOTICE](NOTICE).

@@ -235,4 +235,4 @@ All configuration options are in `~/.config/lunele/cli.json`.
 
 ## License
 
-GPL-3.0-only. Original work © the Caelestia contributors.
+GPL-3.0-only. Copyright (C) 2026 Manuel López Mallorquín. Credits in [NOTICE](NOTICE).
