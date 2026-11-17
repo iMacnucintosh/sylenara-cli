@@ -1,26 +1,26 @@
 # Maintainer: iMacnucintosh
-# The command line of the Lunele shell (`lunele`), built from the git repository.
+# The command line of the Sylenara shell (`sylenara`), built from the git repository.
 #   cd packaging && makepkg -si
-pkgname=lunele-cli-git
+pkgname=sylenara-cli-git
 pkgver=0.0.0.r0.g0000000
 pkgrel=1
-pkgdesc="Command line of the Lunele shell (lunele): shell, themes, wallpapers, screenshots, extensions"
+pkgdesc="Command line of the Sylenara shell (sylenara): shell, themes, wallpapers, screenshots, extensions"
 arch=('any')
-url="https://github.com/iMacnucintosh/lunele-cli"
+url="https://github.com/iMacnucintosh/sylenara-cli"
 license=('GPL-3.0-only')
 depends=('python' 'python-pillow' 'python-materialyoucolor')
 makedepends=('git' 'python-build' 'python-installer' 'python-hatchling' 'python-hatch-vcs')
 optdepends=('wl-clipboard: copy screenshots and colours'
-            'grim: screenshots' 'slurp: select a region' 'gpu-screen-recorder: screen recording (lunele record)'
+            'grim: screenshots' 'slurp: select a region' 'gpu-screen-recorder: screen recording (syl record)'
             'swappy: edit screenshots' 'libnotify: notifications')
-provides=('lunele-cli')
-conflicts=('lunele-cli')
-# LUNELE_REF=<tag> builds that release (the Lunele installer and its updates set it); without it, the latest commit
-source=("git+${url}.git${LUNELE_REF:+#tag=$LUNELE_REF}")
+provides=('sylenara-cli')
+conflicts=('sylenara-cli')
+# SYLENARA_REF=<tag> builds that release (the Sylenara installer and its updates set it); without it, the latest commit
+source=("git+${url}.git${SYLENARA_REF:+#tag=$SYLENARA_REF}")
 sha256sums=('SKIP')
 
 pkgver() {
-  cd lunele-cli
+  cd sylenara-cli
   local described
   if described="$(git describe --tags --long --match 'v0.*' 2>/dev/null)"; then
     printf '%s' "$described" | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
@@ -30,17 +30,17 @@ pkgver() {
 }
 
 build() {
-  cd lunele-cli
+  cd sylenara-cli
   # hatch-vcs reads the version from git: the nearest tag of ours
   export SETUPTOOLS_SCM_PRETEND_VERSION="${pkgver%%.r*}"
   python -m build --wheel --no-isolation
 }
 
 package() {
-  cd lunele-cli
+  cd sylenara-cli
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
   install -Dm644 NOTICE "$pkgdir/usr/share/licenses/$pkgname/NOTICE"
-  install -Dm644 completions/lunele.fish "$pkgdir/usr/share/fish/vendor_completions.d/lunele.fish"
-  install -Dm644 completions/_lunele "$pkgdir/usr/share/zsh/site-functions/_lunele"
+  install -Dm644 completions/syl.fish "$pkgdir/usr/share/fish/vendor_completions.d/syl.fish"
+  install -Dm644 completions/_syl "$pkgdir/usr/share/zsh/site-functions/_syl"
 }

@@ -1,9 +1,9 @@
-<h1 align="center">lunele-cli</h1>
+<h1 align="center">sylenara-cli</h1>
 
 <p align="center"><strong>English</strong> · <a href="./README.es.md">Español</a></p>
 
 <p align="center">
-The command line of <a href="https://github.com/iMacnucintosh/lunele-shell">Lunele</a>, a Material You desktop for Hyprland: start the shell, change the colour scheme and the wallpaper, take screenshots and recordings, manage the extensions and keep everything up to date. The command is <code>lunele</code>.
+The command line of <a href="https://github.com/iMacnucintosh/sylenara-shell">Sylenara</a>, a Material You desktop for Hyprland: start the shell, change the colour scheme and the wallpaper, take screenshots and recordings, manage the extensions and keep everything up to date. The command is <code>sylenara</code>.
 </p>
 
 <details><summary id="dependencies">External dependencies</summary>
@@ -24,12 +24,12 @@ The command line of <a href="https://github.com/iMacnucintosh/lunele-shell">Lune
 
 ## Installation
 
-It comes with Lunele: [its installer](https://github.com/iMacnucintosh/lunele-shell#installation) installs this
-CLI (the `lunele-cli-git` package) along with the shell, and keeps it up to date. On its own, on Arch Linux, add the
-[Lunele package repository](https://github.com/iMacnucintosh/lunele-packages) and install it with pacman:
+It comes with Sylenara: [its installer](https://github.com/iMacnucintosh/sylenara-shell#installation) installs this
+CLI (the `sylenara-cli-git` package) along with the shell, and keeps it up to date. On its own, on Arch Linux, add the
+[Sylenara package repository](https://github.com/iMacnucintosh/sylenara-packages) and install it with pacman:
 
 ```sh
-sudo pacman -S lunele-cli-git
+sudo pacman -S sylenara-cli-git
 ```
 
 ### Build from source
@@ -48,14 +48,14 @@ yay -S libnotify swappy grim dart-sass wl-clipboard slurp gpu-screen-recorder ff
 
 Now, clone the repo, `cd` into it, build the wheel via `python -m build --wheel` and install it via
 `python -m installer dist/*.whl`. Then, to install the `fish` completions, copy the
-`completions/lunele.fish` file to `/usr/share/fish/vendor_completions.d/lunele.fish`.
+`completions/syl.fish` file to `/usr/share/fish/vendor_completions.d/syl.fish`.
 
 ```sh
-git clone https://github.com/iMacnucintosh/lunele-cli.git
-cd lunele-cli
+git clone https://github.com/iMacnucintosh/sylenara-cli.git
+cd sylenara-cli
 python -m build --wheel
 sudo python -m installer dist/*.whl
-sudo cp completions/lunele.fish /usr/share/fish/vendor_completions.d/lunele.fish
+sudo cp completions/syl.fish /usr/share/fish/vendor_completions.d/syl.fish
 ```
 
 ### Additional steps
@@ -83,19 +83,19 @@ You can allow this by creating a sudoers file:
 ```fish
 # Fish shell
 for dir in /etc/chromium/policies/managed /etc/brave/policies/managed /etc/opt/chrome/policies/managed
-    echo "$USER ALL=(ALL) NOPASSWD: $(which mkdir) -p $dir" | sudo tee -a /etc/sudoers.d/lunele-chromium
-    echo "$USER ALL=(ALL) NOPASSWD: $(which tee) $dir/lunele.json" | sudo tee -a /etc/sudoers.d/lunele-chromium
+    echo "$USER ALL=(ALL) NOPASSWD: $(which mkdir) -p $dir" | sudo tee -a /etc/sudoers.d/sylenara-chromium
+    echo "$USER ALL=(ALL) NOPASSWD: $(which tee) $dir/sylenara.json" | sudo tee -a /etc/sudoers.d/sylenara-chromium
 end
-sudo chmod 440 /etc/sudoers.d/lunele-chromium
+sudo chmod 440 /etc/sudoers.d/sylenara-chromium
 ```
 
 ```sh
 # Bash/other shells
 for dir in /etc/chromium/policies/managed /etc/brave/policies/managed /etc/opt/chrome/policies/managed; do
-    echo "$USER ALL=(ALL) NOPASSWD: $(which mkdir) -p $dir" | sudo tee -a /etc/sudoers.d/lunele-chromium
-    echo "$USER ALL=(ALL) NOPASSWD: $(which tee) $dir/lunele.json" | sudo tee -a /etc/sudoers.d/lunele-chromium
+    echo "$USER ALL=(ALL) NOPASSWD: $(which mkdir) -p $dir" | sudo tee -a /etc/sudoers.d/sylenara-chromium
+    echo "$USER ALL=(ALL) NOPASSWD: $(which tee) $dir/sylenara.json" | sudo tee -a /etc/sudoers.d/sylenara-chromium
 done
-sudo chmod 440 /etc/sudoers.d/lunele-chromium
+sudo chmod 440 /etc/sudoers.d/sylenara-chromium
 ```
 
 ## Usage
@@ -103,10 +103,10 @@ sudo chmod 440 /etc/sudoers.d/lunele-chromium
 All subcommands/options can be explored via the help flag.
 
 ```
-$ lunele -h
-usage: lunele [-h] [-v] COMMAND ...
+$ syl -h
+usage: syl [-h] [-v] COMMAND ...
 
-Main control script for the Lunele Shell
+Main control script for the Sylenara Shell
 
 options:
   -h, --help     show this help message and exit
@@ -125,17 +125,17 @@ subcommands:
     emoji        emoji/glyph utilities
     wallpaper    manage the wallpaper
     resizer      window resizer daemon
-    install      install Lunele: what is missing on this computer (`lunele install --help`)
-    update       bring Lunele and what it installed up to date (`lunele update --help`)
+    install      install Sylenara: what is missing on this computer (`syl install --help`)
+    update       bring Sylenara and what it installed up to date (`syl update --help`)
     ext          manage the shell's extensions or run their commands
 ```
 
-`lunele install` and `lunele update` run the shell's own installer (`scripts/installer.py`); `lunele ext` runs its
+`syl install` and `syl update` run the shell's own installer (`scripts/installer.py`); `syl ext` runs its
 extension tool (`scripts/ext.py`). Their options are the ones of those scripts.
 
 ### User templates
 
-Custom user templates can be defined in `~/.config/lunele/templates/`.
+Custom user templates can be defined in `~/.config/sylenara/templates/`.
 
 #### Template syntax
 
@@ -152,12 +152,12 @@ Custom user templates can be defined in `~/.config/lunele/templates/`.
 - `{{ primary.hsl }}` outputs `hsl(268,41%,66%)`
 - `{{ primary.hue }}` outputs `268`
 
-Output files are written to `~/.local/state/lunele/theme/`. You can symlink them to your desired
+Output files are written to `~/.local/state/sylenara/theme/`. You can symlink them to your desired
 locations.
 
 ## Configuring
 
-All configuration options are in `~/.config/lunele/cli.json`.
+All configuration options are in `~/.config/sylenara/cli.json`.
 
 <details><summary>Example configuration</summary>
 

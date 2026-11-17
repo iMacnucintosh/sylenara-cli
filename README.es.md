@@ -1,9 +1,9 @@
-<h1 align="center">lunele-cli</h1>
+<h1 align="center">sylenara-cli</h1>
 
 <p align="center"><a href="./README.md">English</a> · <strong>Español</strong></p>
 
 <p align="center">
-La línea de comandos de <a href="https://github.com/iMacnucintosh/lunele-shell">Lunele</a>, un escritorio Material You para Hyprland: arranca la shell, cambia el esquema de colores y el fondo, hace capturas y grabaciones, gestiona las extensiones y mantiene todo al día. El comando es <code>lunele</code>.
+La línea de comandos de <a href="https://github.com/iMacnucintosh/sylenara-shell">Sylenara</a>, un escritorio Material You para Hyprland: arranca la shell, cambia el esquema de colores y el fondo, hace capturas y grabaciones, gestiona las extensiones y mantiene todo al día. El comando es <code>sylenara</code>.
 </p>
 
 <details><summary id="dependencias">Dependencias externas</summary>
@@ -24,10 +24,10 @@ La línea de comandos de <a href="https://github.com/iMacnucintosh/lunele-shell"
 
 ## Instalación
 
-Viene con Lunele: [su instalador](https://github.com/iMacnucintosh/lunele-shell/blob/main/README.es.md#instalación) instala esta CLI (el paquete `lunele-cli-git`) junto con la shell y la mantiene al día. Por separado, en Arch Linux, añade el [repositorio de paquetes de Lunele](https://github.com/iMacnucintosh/lunele-packages) e instálala con pacman:
+Viene con Sylenara: [su instalador](https://github.com/iMacnucintosh/sylenara-shell/blob/main/README.es.md#instalación) instala esta CLI (el paquete `sylenara-cli-git`) junto con la shell y la mantiene al día. Por separado, en Arch Linux, añade el [repositorio de paquetes de Sylenara](https://github.com/iMacnucintosh/sylenara-packages) e instálala con pacman:
 
 ```sh
-sudo pacman -S lunele-cli-git
+sudo pacman -S sylenara-cli-git
 ```
 
 ### Compilar desde el código
@@ -40,14 +40,14 @@ Por ejemplo, con un ayudante del AUR (yay):
 yay -S libnotify swappy grim dart-sass wl-clipboard slurp gpu-screen-recorder ffmpeg glib2 cliphist fuzzel python-build python-installer python-hatch python-hatch-vcs
 ```
 
-Ahora clona el repositorio, entra en él, construye el wheel con `python -m build --wheel` e instálalo con `python -m installer dist/*.whl`. Después, para instalar las completaciones de `fish`, copia `completions/lunele.fish` en `/usr/share/fish/vendor_completions.d/lunele.fish`.
+Ahora clona el repositorio, entra en él, construye el wheel con `python -m build --wheel` e instálalo con `python -m installer dist/*.whl`. Después, para instalar las completaciones de `fish`, copia `completions/syl.fish` en `/usr/share/fish/vendor_completions.d/syl.fish`.
 
 ```sh
-git clone https://github.com/iMacnucintosh/lunele-cli.git
-cd lunele-cli
+git clone https://github.com/iMacnucintosh/sylenara-cli.git
+cd sylenara-cli
 python -m build --wheel
 sudo python -m installer dist/*.whl
-sudo cp completions/lunele.fish /usr/share/fish/vendor_completions.d/lunele.fish
+sudo cp completions/syl.fish /usr/share/fish/vendor_completions.d/syl.fish
 ```
 
 ### Pasos adicionales
@@ -72,19 +72,19 @@ Puedes permitirlo creando un fichero de sudoers:
 ```fish
 # Fish shell
 for dir in /etc/chromium/policies/managed /etc/brave/policies/managed /etc/opt/chrome/policies/managed
-    echo "$USER ALL=(ALL) NOPASSWD: $(which mkdir) -p $dir" | sudo tee -a /etc/sudoers.d/lunele-chromium
-    echo "$USER ALL=(ALL) NOPASSWD: $(which tee) $dir/lunele.json" | sudo tee -a /etc/sudoers.d/lunele-chromium
+    echo "$USER ALL=(ALL) NOPASSWD: $(which mkdir) -p $dir" | sudo tee -a /etc/sudoers.d/sylenara-chromium
+    echo "$USER ALL=(ALL) NOPASSWD: $(which tee) $dir/sylenara.json" | sudo tee -a /etc/sudoers.d/sylenara-chromium
 end
-sudo chmod 440 /etc/sudoers.d/lunele-chromium
+sudo chmod 440 /etc/sudoers.d/sylenara-chromium
 ```
 
 ```sh
 # Bash/other shells
 for dir in /etc/chromium/policies/managed /etc/brave/policies/managed /etc/opt/chrome/policies/managed; do
-    echo "$USER ALL=(ALL) NOPASSWD: $(which mkdir) -p $dir" | sudo tee -a /etc/sudoers.d/lunele-chromium
-    echo "$USER ALL=(ALL) NOPASSWD: $(which tee) $dir/lunele.json" | sudo tee -a /etc/sudoers.d/lunele-chromium
+    echo "$USER ALL=(ALL) NOPASSWD: $(which mkdir) -p $dir" | sudo tee -a /etc/sudoers.d/sylenara-chromium
+    echo "$USER ALL=(ALL) NOPASSWD: $(which tee) $dir/sylenara.json" | sudo tee -a /etc/sudoers.d/sylenara-chromium
 done
-sudo chmod 440 /etc/sudoers.d/lunele-chromium
+sudo chmod 440 /etc/sudoers.d/sylenara-chromium
 ```
 
 ## Uso
@@ -92,10 +92,10 @@ sudo chmod 440 /etc/sudoers.d/lunele-chromium
 Todos los subcomandos y opciones se pueden explorar con la ayuda.
 
 ```
-$ lunele -h
-usage: lunele [-h] [-v] COMMAND ...
+$ syl -h
+usage: syl [-h] [-v] COMMAND ...
 
-Main control script for the Lunele Shell
+Main control script for the Sylenara Shell
 
 options:
   -h, --help     show this help message and exit
@@ -114,16 +114,16 @@ subcommands:
     emoji        emoji/glyph utilities
     wallpaper    manage the wallpaper
     resizer      window resizer daemon
-    install      install Lunele: what is missing on this computer (`lunele install --help`)
-    update       bring Lunele and what it installed up to date (`lunele update --help`)
+    install      install Sylenara: what is missing on this computer (`syl install --help`)
+    update       bring Sylenara and what it installed up to date (`syl update --help`)
     ext          manage the shell's extensions or run their commands
 ```
 
-`lunele install` y `lunele update` ejecutan el instalador de la shell (`scripts/installer.py`); `lunele ext` ejecuta su herramienta de extensiones (`scripts/ext.py`). Sus opciones son las de esos scripts.
+`syl install` y `syl update` ejecutan el instalador de la shell (`scripts/installer.py`); `syl ext` ejecuta su herramienta de extensiones (`scripts/ext.py`). Sus opciones son las de esos scripts.
 
 ### Plantillas de usuario
 
-Puedes definir tus propias plantillas en `~/.config/lunele/templates/`.
+Puedes definir tus propias plantillas en `~/.config/sylenara/templates/`.
 
 #### Sintaxis de las plantillas
 
@@ -140,11 +140,11 @@ Puedes definir tus propias plantillas en `~/.config/lunele/templates/`.
 - `{{ primary.hsl }}` da `hsl(268,41%,66%)`
 - `{{ primary.hue }}` da `268`
 
-Los ficheros de salida se escriben en `~/.local/state/lunele/theme/`. Puedes enlazarlos simbólicamente donde los quieras.
+Los ficheros de salida se escriben en `~/.local/state/sylenara/theme/`. Puedes enlazarlos simbólicamente donde los quieras.
 
 ## Configuración
 
-Todas las opciones están en `~/.config/lunele/cli.json`.
+Todas las opciones están en `~/.config/sylenara/cli.json`.
 
 <details><summary>Configuración de ejemplo</summary>
 
