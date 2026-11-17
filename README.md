@@ -3,7 +3,7 @@
 <p align="center"><strong>English</strong> · <a href="./README.es.md">Español</a></p>
 
 <p align="center">
-The command line of <a href="https://github.com/iMacnucintosh/sylenara-shell">Sylenara</a>, a Material You desktop for Hyprland: start the shell, change the colour scheme and the wallpaper, take screenshots and recordings, manage the extensions and keep everything up to date. The command is <code>sylenara</code>.
+The command line of <a href="https://github.com/iMacnucintosh/sylenara-shell">Sylenara</a>, a Material You desktop for Hyprland: start the shell, change the colour scheme and the wallpaper, take screenshots and recordings, manage the extensions and keep everything up to date. The command is <code>syl</code>.
 </p>
 
 <details><summary id="dependencies">External dependencies</summary>
