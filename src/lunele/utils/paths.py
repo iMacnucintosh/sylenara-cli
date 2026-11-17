@@ -15,22 +15,17 @@ pictures_dir: Path = Path(os.getenv("XDG_PICTURES_DIR", Path.home() / "Pictures"
 videos_dir: Path = Path(os.getenv("XDG_VIDEOS_DIR", Path.home() / "Videos"))
 
 APP_NAME = "lunele"
-LEGACY_APP_NAME = "caelestia"
 
 
 def _env_path(name: str, default: Path) -> Path:
-    """Read LUNELE_<name>, falling back to the pre-rename CAELESTIA_<name>."""
-    value = os.getenv(f"LUNELE_{name}") or os.getenv(f"CAELESTIA_{name}")
+    """Read LUNELE_<name> from the environment."""
+    value = os.getenv(f"LUNELE_{name}")
     return Path(value) if value else default
 
 
 def _app_dir(base: Path) -> Path:
-    """Prefer the Lunele dir; fall back to the pre-rename one until it is migrated."""
-    new_dir = base / APP_NAME
-    old_dir = base / LEGACY_APP_NAME
-    if new_dir.exists() or not old_dir.exists():
-        return new_dir
-    return old_dir
+    """The directory of Lunele inside an XDG base directory."""
+    return base / APP_NAME
 
 
 c_config_dir: Path = _app_dir(config_dir)

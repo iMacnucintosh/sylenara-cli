@@ -43,12 +43,11 @@ def print_packages() -> None:
 
 
 def _shell_version() -> str:
-    for helper in ("/usr/lib/lunele/version", "/usr/lib/caelestia/version"):
-        try:
-            return subprocess.check_output([helper, "-s"], text=True).strip()
-        except FileNotFoundError:
-            continue
-    raise FileNotFoundError("/usr/lib/lunele/version")
+    helper = "/usr/lib/lunele/version"
+    try:
+        return subprocess.check_output([helper, "-s"], text=True).strip()
+    except FileNotFoundError:
+        raise FileNotFoundError(helper)
 
 
 def print_version() -> None:

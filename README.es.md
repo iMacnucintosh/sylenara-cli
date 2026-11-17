@@ -220,23 +220,6 @@ Todas las opciones están en `~/.config/lunele/cli.json`.
 
 </details>
 
-## Si vienes de Caelestia
-
-La CLI de Lunele empezó como [`caelestia-dots/cli`](https://github.com/caelestia-dots/cli). Si usabas esa, esto es lo que se llama distinto aquí:
-
-| Caelestia | Lunele |
-| --- | --- |
-| comando `caelestia` | comando `lunele` |
-| paquete `caelestia` | paquete `lunele` |
-| `~/.config/caelestia` | `~/.config/lunele` |
-| `~/.local/state/caelestia` | `~/.local/state/lunele` |
-| `~/.cache/caelestia` | `~/.cache/lunele` |
-| variables `CAELESTIA_*` | `LUNELE_*` (las antiguas se siguen leyendo) |
-| instancia de Quickshell `caelestia` | instancia de Quickshell `lunele` |
-| ficheros de tema `caelestia.*` | ficheros de tema `lunele.*` |
-
-`install` y `update` ya no despliegan los dotfiles de Caelestia: ejecutan el instalador de Lunele.
-
 ## Licencia
 
 GPL-3.0-only. Obra original © los colaboradores de Caelestia.

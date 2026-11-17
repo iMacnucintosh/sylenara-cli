@@ -233,23 +233,6 @@ All configuration options are in `~/.config/lunele/cli.json`.
 
 </details>
 
-## Coming from Caelestia
-
-The CLI of Lunele started as [`caelestia-dots/cli`](https://github.com/caelestia-dots/cli). If you used that one, this is what is named differently here:
-
-| Caelestia | Lunele |
-| --- | --- |
-| command `caelestia` | command `lunele` |
-| package `caelestia` | package `lunele` |
-| `~/.config/caelestia` | `~/.config/lunele` |
-| `~/.local/state/caelestia` | `~/.local/state/lunele` |
-| `~/.cache/caelestia` | `~/.cache/lunele` |
-| `CAELESTIA_*` env vars | `LUNELE_*` (old ones still read) |
-| Quickshell instance `caelestia` | Quickshell instance `lunele` |
-| theme files `caelestia.*` | theme files `lunele.*` |
-
-`install` and `update` no longer deploy the Caelestia dotfiles: they run Lunele's installer.
-
 ## License
 
 GPL-3.0-only. Original work © the Caelestia contributors.
