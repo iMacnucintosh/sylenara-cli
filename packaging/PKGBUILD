@@ -8,6 +8,8 @@ pkgdesc="Command line of the Sylenara shell (sylenara): shell, themes, wallpaper
 arch=('any')
 url="https://github.com/iMacnucintosh/sylenara-cli"
 license=('GPL-3.0-only')
+# No debug package: nobody installs the symbols of this one
+options=('!debug')
 depends=('python' 'python-pillow' 'python-materialyoucolor')
 makedepends=('git' 'python-build' 'python-installer' 'python-hatchling' 'python-hatch-vcs')
 optdepends=('wl-clipboard: copy screenshots and colours'

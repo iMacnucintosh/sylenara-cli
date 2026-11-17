@@ -3,7 +3,7 @@
 <p align="center"><a href="./README.md">English</a> · <strong>Español</strong></p>
 
 <p align="center">
-La línea de comandos de <a href="https://github.com/iMacnucintosh/sylenara-shell">Sylenara</a>, un escritorio Material You para Hyprland: arranca la shell, cambia el esquema de colores y el fondo, hace capturas y grabaciones, gestiona las extensiones y mantiene todo al día. El comando es <code>sylenara</code>.
+La línea de comandos de <a href="https://github.com/iMacnucintosh/sylenara-shell">Sylenara</a>, un escritorio Material You para Hyprland: arranca la shell, cambia el esquema de colores y el fondo, hace capturas y grabaciones, gestiona las extensiones y mantiene todo al día. El comando es <code>syl</code>.
 </p>
 
 <details><summary id="dependencias">Dependencias externas</summary>

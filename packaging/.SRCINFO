@@ -21,6 +21,7 @@ pkgbase = sylenara-cli-git
 	optdepends = libnotify: notifications
 	provides = sylenara-cli
 	conflicts = sylenara-cli
+	options = !debug
 	source = git+https://github.com/iMacnucintosh/sylenara-cli.git
 	sha256sums = SKIP
 
