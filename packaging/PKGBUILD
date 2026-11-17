@@ -1,26 +1,26 @@
 # Maintainer: iMacnucintosh
-# The command line of the Sylphrena shell (`sylph`), built from the git repository.
+# The command line of the Lunele shell (`lunele`), built from the git repository.
 #   cd packaging && makepkg -si
-pkgname=sylphrena-cli-git
+pkgname=lunele-cli-git
 pkgver=0.0.0.r0.g0000000
 pkgrel=1
-pkgdesc="Command line of the Sylphrena shell (sylph): shell, themes, wallpapers, screenshots, extensions"
+pkgdesc="Command line of the Lunele shell (lunele): shell, themes, wallpapers, screenshots, extensions"
 arch=('any')
-url="https://github.com/iMacnucintosh/sylphrena-cli"
+url="https://github.com/iMacnucintosh/lunele-cli"
 license=('GPL-3.0-only')
 depends=('python' 'python-pillow' 'python-materialyoucolor')
 makedepends=('git' 'python-build' 'python-installer' 'python-hatchling' 'python-hatch-vcs')
 optdepends=('wl-clipboard: copy screenshots and colours'
-            'grim: screenshots' 'slurp: select a region' 'gpu-screen-recorder: screen recording (sylph record)'
+            'grim: screenshots' 'slurp: select a region' 'gpu-screen-recorder: screen recording (lunele record)'
             'swappy: edit screenshots' 'libnotify: notifications')
-provides=('sylphrena-cli')
-conflicts=('sylphrena-cli')
-# SYLPHRENA_REF=<tag> builds that release (the Sylphrena installer and its updates set it); without it, the latest commit
-source=("git+${url}.git${SYLPHRENA_REF:+#tag=$SYLPHRENA_REF}")
+provides=('lunele-cli')
+conflicts=('lunele-cli')
+# LUNELE_REF=<tag> builds that release (the Lunele installer and its updates set it); without it, the latest commit
+source=("git+${url}.git${LUNELE_REF:+#tag=$LUNELE_REF}")
 sha256sums=('SKIP')
 
 pkgver() {
-  cd sylphrena-cli
+  cd lunele-cli
   local described
   if described="$(git describe --tags --long --match 'v0.*' 2>/dev/null)"; then
     printf '%s' "$described" | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
@@ -30,15 +30,15 @@ pkgver() {
 }
 
 build() {
-  cd sylphrena-cli
+  cd lunele-cli
   # hatch-vcs reads the version from git: the nearest tag of ours
   export SETUPTOOLS_SCM_PRETEND_VERSION="${pkgver%%.r*}"
   python -m build --wheel --no-isolation
 }
 
 package() {
-  cd sylphrena-cli
+  cd lunele-cli
   python -m installer --destdir="$pkgdir" dist/*.whl
-  install -Dm644 completions/sylph.fish "$pkgdir/usr/share/fish/vendor_completions.d/sylph.fish"
-  install -Dm644 completions/_sylph "$pkgdir/usr/share/zsh/site-functions/_sylph"
+  install -Dm644 completions/lunele.fish "$pkgdir/usr/share/fish/vendor_completions.d/lunele.fish"
+  install -Dm644 completions/_lunele "$pkgdir/usr/share/zsh/site-functions/_lunele"
 }

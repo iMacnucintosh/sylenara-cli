@@ -1,9 +1,9 @@
-<h1 align="center">sylphrena-cli</h1>
+<h1 align="center">lunele-cli</h1>
 
 <p align="center"><a href="./README.md">English</a> · <strong>Español</strong></p>
 
 <p align="center">
-La línea de comandos de <a href="https://github.com/iMacnucintosh/sylphrena-shell">Sylphrena</a>, un escritorio Material You para Hyprland: arranca la shell, cambia el esquema de colores y el fondo, hace capturas y grabaciones, gestiona las extensiones y mantiene todo al día. El comando es <code>sylph</code>.
+La línea de comandos de <a href="https://github.com/iMacnucintosh/lunele-shell">Lunele</a>, un escritorio Material You para Hyprland: arranca la shell, cambia el esquema de colores y el fondo, hace capturas y grabaciones, gestiona las extensiones y mantiene todo al día. El comando es <code>lunele</code>.
 </p>
 
 <details><summary id="dependencias">Dependencias externas</summary>
@@ -24,10 +24,10 @@ La línea de comandos de <a href="https://github.com/iMacnucintosh/sylphrena-she
 
 ## Instalación
 
-Viene con Sylphrena: [su instalador](https://github.com/iMacnucintosh/sylphrena-shell/blob/main/README.es.md#instalación) instala esta CLI (el paquete `sylphrena-cli-git`) junto con la shell y la mantiene al día. Por separado, en Arch Linux, añade el [repositorio de paquetes de Sylphrena](https://github.com/iMacnucintosh/sylphrena-packages) e instálala con pacman:
+Viene con Lunele: [su instalador](https://github.com/iMacnucintosh/lunele-shell/blob/main/README.es.md#instalación) instala esta CLI (el paquete `lunele-cli-git`) junto con la shell y la mantiene al día. Por separado, en Arch Linux, añade el [repositorio de paquetes de Lunele](https://github.com/iMacnucintosh/lunele-packages) e instálala con pacman:
 
 ```sh
-sudo pacman -S sylphrena-cli-git
+sudo pacman -S lunele-cli-git
 ```
 
 ### Compilar desde el código
@@ -40,14 +40,14 @@ Por ejemplo, con un ayudante del AUR (yay):
 yay -S libnotify swappy grim dart-sass wl-clipboard slurp gpu-screen-recorder ffmpeg glib2 cliphist fuzzel python-build python-installer python-hatch python-hatch-vcs
 ```
 
-Ahora clona el repositorio, entra en él, construye el wheel con `python -m build --wheel` e instálalo con `python -m installer dist/*.whl`. Después, para instalar las completaciones de `fish`, copia `completions/sylph.fish` en `/usr/share/fish/vendor_completions.d/sylph.fish`.
+Ahora clona el repositorio, entra en él, construye el wheel con `python -m build --wheel` e instálalo con `python -m installer dist/*.whl`. Después, para instalar las completaciones de `fish`, copia `completions/lunele.fish` en `/usr/share/fish/vendor_completions.d/lunele.fish`.
 
 ```sh
-git clone https://github.com/iMacnucintosh/sylphrena-cli.git
-cd sylphrena-cli
+git clone https://github.com/iMacnucintosh/lunele-cli.git
+cd lunele-cli
 python -m build --wheel
 sudo python -m installer dist/*.whl
-sudo cp completions/sylph.fish /usr/share/fish/vendor_completions.d/sylph.fish
+sudo cp completions/lunele.fish /usr/share/fish/vendor_completions.d/lunele.fish
 ```
 
 ### Pasos adicionales
@@ -72,19 +72,19 @@ Puedes permitirlo creando un fichero de sudoers:
 ```fish
 # Fish shell
 for dir in /etc/chromium/policies/managed /etc/brave/policies/managed /etc/opt/chrome/policies/managed
-    echo "$USER ALL=(ALL) NOPASSWD: $(which mkdir) -p $dir" | sudo tee -a /etc/sudoers.d/sylphrena-chromium
-    echo "$USER ALL=(ALL) NOPASSWD: $(which tee) $dir/sylphrena.json" | sudo tee -a /etc/sudoers.d/sylphrena-chromium
+    echo "$USER ALL=(ALL) NOPASSWD: $(which mkdir) -p $dir" | sudo tee -a /etc/sudoers.d/lunele-chromium
+    echo "$USER ALL=(ALL) NOPASSWD: $(which tee) $dir/lunele.json" | sudo tee -a /etc/sudoers.d/lunele-chromium
 end
-sudo chmod 440 /etc/sudoers.d/sylphrena-chromium
+sudo chmod 440 /etc/sudoers.d/lunele-chromium
 ```
 
 ```sh
 # Bash/other shells
 for dir in /etc/chromium/policies/managed /etc/brave/policies/managed /etc/opt/chrome/policies/managed; do
-    echo "$USER ALL=(ALL) NOPASSWD: $(which mkdir) -p $dir" | sudo tee -a /etc/sudoers.d/sylphrena-chromium
-    echo "$USER ALL=(ALL) NOPASSWD: $(which tee) $dir/sylphrena.json" | sudo tee -a /etc/sudoers.d/sylphrena-chromium
+    echo "$USER ALL=(ALL) NOPASSWD: $(which mkdir) -p $dir" | sudo tee -a /etc/sudoers.d/lunele-chromium
+    echo "$USER ALL=(ALL) NOPASSWD: $(which tee) $dir/lunele.json" | sudo tee -a /etc/sudoers.d/lunele-chromium
 done
-sudo chmod 440 /etc/sudoers.d/sylphrena-chromium
+sudo chmod 440 /etc/sudoers.d/lunele-chromium
 ```
 
 ## Uso
@@ -92,10 +92,10 @@ sudo chmod 440 /etc/sudoers.d/sylphrena-chromium
 Todos los subcomandos y opciones se pueden explorar con la ayuda.
 
 ```
-$ sylph -h
-usage: sylph [-h] [-v] COMMAND ...
+$ lunele -h
+usage: lunele [-h] [-v] COMMAND ...
 
-Main control script for the Sylphrena Shell
+Main control script for the Lunele Shell
 
 options:
   -h, --help     show this help message and exit
@@ -114,16 +114,16 @@ subcommands:
     emoji        emoji/glyph utilities
     wallpaper    manage the wallpaper
     resizer      window resizer daemon
-    install      install Sylphrena: what is missing on this computer (`sylph install --help`)
-    update       bring Sylphrena and what it installed up to date (`sylph update --help`)
+    install      install Lunele: what is missing on this computer (`lunele install --help`)
+    update       bring Lunele and what it installed up to date (`lunele update --help`)
     ext          manage the shell's extensions or run their commands
 ```
 
-`sylph install` y `sylph update` ejecutan el instalador de la shell (`scripts/installer.py`); `sylph ext` ejecuta su herramienta de extensiones (`scripts/ext.py`). Sus opciones son las de esos scripts.
+`lunele install` y `lunele update` ejecutan el instalador de la shell (`scripts/installer.py`); `lunele ext` ejecuta su herramienta de extensiones (`scripts/ext.py`). Sus opciones son las de esos scripts.
 
 ### Plantillas de usuario
 
-Puedes definir tus propias plantillas en `~/.config/sylphrena/templates/`.
+Puedes definir tus propias plantillas en `~/.config/lunele/templates/`.
 
 #### Sintaxis de las plantillas
 
@@ -140,11 +140,11 @@ Puedes definir tus propias plantillas en `~/.config/sylphrena/templates/`.
 - `{{ primary.hsl }}` da `hsl(268,41%,66%)`
 - `{{ primary.hue }}` da `268`
 
-Los ficheros de salida se escriben en `~/.local/state/sylphrena/theme/`. Puedes enlazarlos simbólicamente donde los quieras.
+Los ficheros de salida se escriben en `~/.local/state/lunele/theme/`. Puedes enlazarlos simbólicamente donde los quieras.
 
 ## Configuración
 
-Todas las opciones están en `~/.config/sylphrena/cli.json`.
+Todas las opciones están en `~/.config/lunele/cli.json`.
 
 <details><summary>Configuración de ejemplo</summary>
 
@@ -222,20 +222,20 @@ Todas las opciones están en `~/.config/sylphrena/cli.json`.
 
 ## Si vienes de Caelestia
 
-La CLI de Sylphrena empezó como [`caelestia-dots/cli`](https://github.com/caelestia-dots/cli). Si usabas esa, esto es lo que se llama distinto aquí:
+La CLI de Lunele empezó como [`caelestia-dots/cli`](https://github.com/caelestia-dots/cli). Si usabas esa, esto es lo que se llama distinto aquí:
 
-| Caelestia | Sylphrena |
+| Caelestia | Lunele |
 | --- | --- |
-| comando `caelestia` | comando `sylph` |
-| paquete `caelestia` | paquete `sylphrena` |
-| `~/.config/caelestia` | `~/.config/sylphrena` |
-| `~/.local/state/caelestia` | `~/.local/state/sylphrena` |
-| `~/.cache/caelestia` | `~/.cache/sylphrena` |
-| variables `CAELESTIA_*` | `SYLPHRENA_*` (las antiguas se siguen leyendo) |
-| instancia de Quickshell `caelestia` | instancia de Quickshell `sylphrena` |
-| ficheros de tema `caelestia.*` | ficheros de tema `sylphrena.*` |
+| comando `caelestia` | comando `lunele` |
+| paquete `caelestia` | paquete `lunele` |
+| `~/.config/caelestia` | `~/.config/lunele` |
+| `~/.local/state/caelestia` | `~/.local/state/lunele` |
+| `~/.cache/caelestia` | `~/.cache/lunele` |
+| variables `CAELESTIA_*` | `LUNELE_*` (las antiguas se siguen leyendo) |
+| instancia de Quickshell `caelestia` | instancia de Quickshell `lunele` |
+| ficheros de tema `caelestia.*` | ficheros de tema `lunele.*` |
 
-`install` y `update` ya no despliegan los dotfiles de Caelestia: ejecutan el instalador de Sylphrena.
+`install` y `update` ya no despliegan los dotfiles de Caelestia: ejecutan el instalador de Lunele.
 
 ## Licencia
 
