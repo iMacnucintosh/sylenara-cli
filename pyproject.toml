@@ -3,7 +3,7 @@ requires = ["hatchling", "hatch-vcs"]
 build-backend = "hatchling.build"
 
 [project]
-name = "sylphrena"
+name = "sylenara"
 requires-python = ">=3.13"
 dynamic = ["version"]
 dependencies = [
@@ -12,7 +12,8 @@ dependencies = [
 ]
 
 [project.scripts]
-sylph = "sylphrena:main"
+syl = "sylenara:main"
+sylenara = "sylenara:main"
 
 [tool.hatch.version]
 source = "vcs"

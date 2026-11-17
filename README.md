@@ -1,9 +1,10 @@
-# sylphrena-cli
+<h1 align="center">sylenara-cli</h1>
 
-The main control script for **[Sylphrena](https://github.com/iMacnucintosh/sylphrena-shell)**, a Material You
-shell for Hyprland. It started as the CLI of the [Caelestia](https://github.com/caelestia-dots/shell) dotfiles.
+<p align="center"><strong>English</strong> · <a href="./README.es.md">Español</a></p>
 
-The command is `sylph`.
+<p align="center">
+The command line of <a href="https://github.com/iMacnucintosh/sylenara-shell">Sylenara</a>, a Material You desktop for Hyprland: start the shell, change the colour scheme and the wallpaper, take screenshots and recordings, manage the extensions and keep everything up to date. The command is <code>sylenara</code>.
+</p>
 
 <details><summary id="dependencies">External dependencies</summary>
 
@@ -23,10 +24,15 @@ The command is `sylph`.
 
 ## Installation
 
-It comes with Sylphrena: [its installer](https://github.com/iMacnucintosh/sylphrena-shell#install) installs this
-CLI (the `sylphrena-cli-git` package) along with the shell, and keeps it up to date.
+It comes with Sylenara: [its installer](https://github.com/iMacnucintosh/sylenara-shell#installation) installs this
+CLI (the `sylenara-cli-git` package) along with the shell, and keeps it up to date. On its own, on Arch Linux, add the
+[Sylenara package repository](https://github.com/iMacnucintosh/sylenara-packages) and install it with pacman:
 
-### Manual installation
+```sh
+sudo pacman -S sylenara-cli-git
+```
+
+### Build from source
 
 Install all [dependencies](#dependencies), then install
 [`python-build`](https://github.com/pypa/build),
@@ -42,14 +48,14 @@ yay -S libnotify swappy grim dart-sass wl-clipboard slurp gpu-screen-recorder ff
 
 Now, clone the repo, `cd` into it, build the wheel via `python -m build --wheel` and install it via
 `python -m installer dist/*.whl`. Then, to install the `fish` completions, copy the
-`completions/sylph.fish` file to `/usr/share/fish/vendor_completions.d/sylph.fish`.
+`completions/syl.fish` file to `/usr/share/fish/vendor_completions.d/syl.fish`.
 
 ```sh
-git clone https://github.com/iMacnucintosh/sylphrena-cli.git
-cd sylphrena-cli
+git clone https://github.com/iMacnucintosh/sylenara-cli.git
+cd sylenara-cli
 python -m build --wheel
 sudo python -m installer dist/*.whl
-sudo cp completions/sylph.fish /usr/share/fish/vendor_completions.d/sylph.fish
+sudo cp completions/syl.fish /usr/share/fish/vendor_completions.d/syl.fish
 ```
 
 ### Additional steps
@@ -77,19 +83,19 @@ You can allow this by creating a sudoers file:
 ```fish
 # Fish shell
 for dir in /etc/chromium/policies/managed /etc/brave/policies/managed /etc/opt/chrome/policies/managed
-    echo "$USER ALL=(ALL) NOPASSWD: $(which mkdir) -p $dir" | sudo tee -a /etc/sudoers.d/sylphrena-chromium
-    echo "$USER ALL=(ALL) NOPASSWD: $(which tee) $dir/sylphrena.json" | sudo tee -a /etc/sudoers.d/sylphrena-chromium
+    echo "$USER ALL=(ALL) NOPASSWD: $(which mkdir) -p $dir" | sudo tee -a /etc/sudoers.d/sylenara-chromium
+    echo "$USER ALL=(ALL) NOPASSWD: $(which tee) $dir/sylenara.json" | sudo tee -a /etc/sudoers.d/sylenara-chromium
 end
-sudo chmod 440 /etc/sudoers.d/sylphrena-chromium
+sudo chmod 440 /etc/sudoers.d/sylenara-chromium
 ```
 
 ```sh
 # Bash/other shells
 for dir in /etc/chromium/policies/managed /etc/brave/policies/managed /etc/opt/chrome/policies/managed; do
-    echo "$USER ALL=(ALL) NOPASSWD: $(which mkdir) -p $dir" | sudo tee -a /etc/sudoers.d/sylphrena-chromium
-    echo "$USER ALL=(ALL) NOPASSWD: $(which tee) $dir/sylphrena.json" | sudo tee -a /etc/sudoers.d/sylphrena-chromium
+    echo "$USER ALL=(ALL) NOPASSWD: $(which mkdir) -p $dir" | sudo tee -a /etc/sudoers.d/sylenara-chromium
+    echo "$USER ALL=(ALL) NOPASSWD: $(which tee) $dir/sylenara.json" | sudo tee -a /etc/sudoers.d/sylenara-chromium
 done
-sudo chmod 440 /etc/sudoers.d/sylphrena-chromium
+sudo chmod 440 /etc/sudoers.d/sylenara-chromium
 ```
 
 ## Usage
@@ -97,10 +103,10 @@ sudo chmod 440 /etc/sudoers.d/sylphrena-chromium
 All subcommands/options can be explored via the help flag.
 
 ```
-$ sylph -h
-usage: sylph [-h] [-v] COMMAND ...
+$ syl -h
+usage: syl [-h] [-v] COMMAND ...
 
-Main control script for the Sylphrena Shell
+Main control script for the Sylenara Shell
 
 options:
   -h, --help     show this help message and exit
@@ -119,17 +125,17 @@ subcommands:
     emoji        emoji/glyph utilities
     wallpaper    manage the wallpaper
     resizer      window resizer daemon
-    install      install Sylphrena: what is missing on this computer (`sylph install --help`)
-    update       bring Sylphrena and what it installed up to date (`sylph update --help`)
+    install      install Sylenara: what is missing on this computer (`syl install --help`)
+    update       bring Sylenara and what it installed up to date (`syl update --help`)
     ext          manage the shell's extensions or run their commands
 ```
 
-`sylph install` and `sylph update` run the shell's own installer (`scripts/installer.py`); `sylph ext` runs its
+`syl install` and `syl update` run the shell's own installer (`scripts/installer.py`); `syl ext` runs its
 extension tool (`scripts/ext.py`). Their options are the ones of those scripts.
 
 ### User templates
 
-Custom user templates can be defined in `~/.config/sylphrena/templates/`.
+Custom user templates can be defined in `~/.config/sylenara/templates/`.
 
 #### Template syntax
 
@@ -146,12 +152,12 @@ Custom user templates can be defined in `~/.config/sylphrena/templates/`.
 - `{{ primary.hsl }}` outputs `hsl(268,41%,66%)`
 - `{{ primary.hue }}` outputs `268`
 
-Output files are written to `~/.local/state/sylphrena/theme/`. You can symlink them to your desired
+Output files are written to `~/.local/state/sylenara/theme/`. You can symlink them to your desired
 locations.
 
 ## Configuring
 
-All configuration options are in `~/.config/sylphrena/cli.json`.
+All configuration options are in `~/.config/sylenara/cli.json`.
 
 <details><summary>Example configuration</summary>
 
@@ -227,24 +233,6 @@ All configuration options are in `~/.config/sylphrena/cli.json`.
 
 </details>
 
-## Differences from upstream
+## License
 
-This is the CLI of the Sylphrena fork. Renames applied on top of
-[`caelestia-dots/cli`](https://github.com/caelestia-dots/cli):
-
-| Upstream | Sylphrena |
-| --- | --- |
-| command `caelestia` | command `sylph` |
-| package `caelestia` | package `sylphrena` |
-| `~/.config/caelestia` | `~/.config/sylphrena` |
-| `~/.local/state/caelestia` | `~/.local/state/sylphrena` |
-| `~/.cache/caelestia` | `~/.cache/sylphrena` |
-| `CAELESTIA_*` env vars | `SYLPHRENA_*` (old ones still read) |
-| Quickshell instance `caelestia` | Quickshell instance `sylphrena` |
-| theme files `caelestia.*` | theme files `sylphrena.*` |
-
-`install` and `update` no longer deploy the Caelestia dotfiles: they run Sylphrena's installer.
-
-## Licence
-
-GPL-3.0-only, same as upstream. Original work © the Caelestia contributors.
+GPL-3.0-only. Copyright (C) 2026 Manuel López Mallorquín. Credits in [NOTICE](NOTICE).
