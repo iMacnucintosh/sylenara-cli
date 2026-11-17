@@ -1,9 +1,10 @@
-# sylphrena-cli
+<h1 align="center">sylphrena-cli</h1>
 
-The main control script for **[Sylphrena](https://github.com/iMacnucintosh/sylphrena-shell)**, a Material You
-shell for Hyprland. It started as the CLI of the [Caelestia](https://github.com/caelestia-dots/shell) dotfiles.
+<p align="center"><strong>English</strong> · <a href="./README.es.md">Español</a></p>
 
-The command is `sylph`.
+<p align="center">
+The command line of <a href="https://github.com/iMacnucintosh/sylphrena-shell">Sylphrena</a>, a Material You desktop for Hyprland: start the shell, change the colour scheme and the wallpaper, take screenshots and recordings, manage the extensions and keep everything up to date. The command is <code>sylph</code>.
+</p>
 
 <details><summary id="dependencies">External dependencies</summary>
 
@@ -23,10 +24,15 @@ The command is `sylph`.
 
 ## Installation
 
-It comes with Sylphrena: [its installer](https://github.com/iMacnucintosh/sylphrena-shell#install) installs this
-CLI (the `sylphrena-cli-git` package) along with the shell, and keeps it up to date.
+It comes with Sylphrena: [its installer](https://github.com/iMacnucintosh/sylphrena-shell#installation) installs this
+CLI (the `sylphrena-cli-git` package) along with the shell, and keeps it up to date. On its own, on Arch Linux, add the
+[Sylphrena package repository](https://github.com/iMacnucintosh/sylphrena-packages) and install it with pacman:
 
-### Manual installation
+```sh
+sudo pacman -S sylphrena-cli-git
+```
+
+### Build from source
 
 Install all [dependencies](#dependencies), then install
 [`python-build`](https://github.com/pypa/build),
@@ -227,12 +233,11 @@ All configuration options are in `~/.config/sylphrena/cli.json`.
 
 </details>
 
-## Differences from upstream
+## Coming from Caelestia
 
-This is the CLI of the Sylphrena fork. Renames applied on top of
-[`caelestia-dots/cli`](https://github.com/caelestia-dots/cli):
+The CLI of Sylphrena started as [`caelestia-dots/cli`](https://github.com/caelestia-dots/cli). If you used that one, this is what is named differently here:
 
-| Upstream | Sylphrena |
+| Caelestia | Sylphrena |
 | --- | --- |
 | command `caelestia` | command `sylph` |
 | package `caelestia` | package `sylphrena` |
@@ -245,6 +250,6 @@ This is the CLI of the Sylphrena fork. Renames applied on top of
 
 `install` and `update` no longer deploy the Caelestia dotfiles: they run Sylphrena's installer.
 
-## Licence
+## License
 
-GPL-3.0-only, same as upstream. Original work © the Caelestia contributors.
+GPL-3.0-only. Original work © the Caelestia contributors.
