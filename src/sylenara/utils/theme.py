@@ -342,38 +342,42 @@ def apply_warp(colours: dict[str, str], mode: str) -> None:
     atomic_write(data_dir / "warp-terminal/themes/sylenara.yaml", template)
 
 
+# Chromium browsers read their bar colour from a managed policy under /etc. The shell's system step
+# (scripts/system/20-browser-policy.sh) gives the user a sylenara.json there; without it there is nothing to do.
+# (command, policy folder, process name)
+CHROMIUM_BROWSERS = [
+    ("chromium", Path("/etc/chromium/policies/managed"), "chromium"),
+    ("brave", Path("/etc/brave/policies/managed"), "brave"),
+    ("google-chrome-stable", Path("/etc/opt/chrome/policies/managed"), "chrome"),
+]
+
+
 @log_exception
 def apply_chromium(colours: dict[str, str]) -> None:
-    surface_hex = colours["surface"]
-    theme_color = f"#{surface_hex}"
-    browsers = [
-        ("chromium", Path("/etc/chromium/policies/managed")),
-        ("brave", Path("/etc/brave/policies/managed")),
-        ("google-chrome-stable", Path("/etc/opt/chrome/policies/managed")),
-    ]
+    content = json.dumps({"BrowserThemeColor": f"#{colours['surface']}", "BrowserColorScheme": "device"})
 
-    for cmd, policy_dir in browsers:
+    for cmd, policy_dir, process in CHROMIUM_BROWSERS:
         if shutil.which(cmd) is None:
             continue
-        if not policy_dir.is_dir():
-            subprocess.run(["sudo", "-n", "mkdir", "-p", str(policy_dir)], stderr=subprocess.DEVNULL)
-        if not policy_dir.is_dir():
-            print(f"Unable to create {policy_dir} directory")
+        policy = policy_dir / "sylenara.json"
+        # Never sudo (there is no terminal to ask for a password): only the file the system step made ours
+        if not os.access(policy, os.W_OK):
+            continue
+        try:
+            if policy.read_text() == content:
+                continue
+            # In place: the folder is root's, so no temporary file next to it
+            policy.write_text(content)
+        except OSError:
             continue
 
-        # Use tee instead of atomic_write cause we need sudo
-        subprocess.run(
-            ["sudo", "-n", "tee", str(policy_dir / "sylenara.json")],
-            input=json.dumps({"BrowserThemeColor": theme_color, "BrowserColorScheme": "device"}),
-            text=True,
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
-        )
-        subprocess.run(
-            [cmd, "--refresh-platform-policy", "--no-startup-window"],
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
-        )
+        # A browser that is not running reads the policy when it starts: never launch it for this
+        if subprocess.run(["pgrep", "-x", process], stdout=subprocess.DEVNULL).returncode == 0:
+            subprocess.run(
+                [cmd, "--refresh-platform-policy", "--no-startup-window"],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+            )
 
 
 def apply_zed(colours: dict[str, str], mode: str) -> None:
