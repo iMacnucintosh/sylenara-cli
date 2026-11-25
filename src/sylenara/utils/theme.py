@@ -344,21 +344,40 @@ def apply_warp(colours: dict[str, str], mode: str) -> None:
 
 # Chromium browsers read their bar colour from a managed policy under /etc. The shell's system step
 # (scripts/system/20-browser-policy.sh) gives the user a sylenara.json there; without it there is nothing to do.
-# (command, policy folder, process name)
+# (command, policy folder, process name, user data folder)
 CHROMIUM_BROWSERS = [
-    ("chromium", Path("/etc/chromium/policies/managed"), "chromium"),
-    ("brave", Path("/etc/brave/policies/managed"), "brave"),
-    ("google-chrome-stable", Path("/etc/opt/chrome/policies/managed"), "chrome"),
+    ("chromium", Path("/etc/chromium/policies/managed"), "chromium", config_dir / "chromium"),
+    ("brave", Path("/etc/brave/policies/managed"), "brave", config_dir / "BraveSoftware/Brave-Browser"),
+    ("google-chrome-stable", Path("/etc/opt/chrome/policies/managed"), "chrome", config_dir / "google-chrome"),
 ]
+
+
+def chromium_has_own_theme(user_data: Path) -> bool:
+    """A profile of the browser has a theme of its own: one from the store, or a colour picked in
+    "Customize Chrome". Our colour is then left out, since a managed colour locks the user's choice."""
+    for prefs in user_data.glob("*/Preferences"):
+        try:
+            data = json.loads(prefs.read_text())
+        except (OSError, ValueError):
+            continue
+        if (data.get("extensions", {}).get("theme", {}) or {}).get("id"):
+            return True
+        theme = (data.get("browser", {}).get("theme", {}) or {})
+        if any(theme.get(k) not in (None, -1, 0) for k in ("user_color", "user_color2")):
+            return True
+    return False
 
 
 @log_exception
 def apply_chromium(colours: dict[str, str]) -> None:
-    content = json.dumps({"BrowserThemeColor": f"#{colours['surface']}", "BrowserColorScheme": "device"})
-
-    for cmd, policy_dir, process in CHROMIUM_BROWSERS:
+    for cmd, policy_dir, process, user_data in CHROMIUM_BROWSERS:
         if shutil.which(cmd) is None:
             continue
+        # The browser's own theme wins: then only the light/dark mode follows the system
+        policy_values = {"BrowserColorScheme": "device"}
+        if not chromium_has_own_theme(user_data):
+            policy_values = {"BrowserThemeColor": f"#{colours['surface']}", **policy_values}
+        content = json.dumps(policy_values)
         policy = policy_dir / "sylenara.json"
         # Never sudo (there is no terminal to ask for a password): only the file the system step made ours
         if not os.access(policy, os.W_OK):
